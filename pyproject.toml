@@ -28,6 +28,12 @@ good-names = [
     "e",
     "f"
 ]
+disable = [
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "broad-exception-caught",
+    "too-many-instance-attributes"
+]
 
 [tool.isort]
 profile = "black"
