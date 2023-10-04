@@ -14,15 +14,13 @@ from subprocess import PIPE, STDOUT, Popen
 from typing import Optional
 
 from android_tester.common import (
-    APP_PACKAGE_NAME,
-    APP_PACKAGE_TEST_NAME,
-    PROJECT_ROOT,
     Device,
     exec_cmd,
     get_all_emulators,
     get_live_devices,
     shutdown_all_running_emulators,
 )
+from android_tester.env import APP_PACKAGE_NAME, APP_PACKAGE_TEST_NAME, PROJECT_ROOT
 
 os.environ["ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL"] = "0"
 
@@ -305,7 +303,7 @@ def stay_awake(devices: list[Device]) -> None:
             print(output)
 
 
-def main() -> None:
+def run() -> None:
     os.chdir(PROJECT_ROOT)
     args = create_argparser().parse_args()
     shutdown_all_running_emulators()
@@ -322,12 +320,20 @@ def main() -> None:
             physical_device_run(device)
 
 
-if __name__ == "__main__":
+def main() -> int:
     try:
         start = time.time()
-        main()
+        run()
         end = time.time()
         print(f"Total time: {end - start:.2f} seconds")
+        return 0
     except KeyboardInterrupt:
         print("\nExiting...")
-    sys.exit(0)
+        return 1
+    except Exception as e:
+        print(f"Error: {e}")
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

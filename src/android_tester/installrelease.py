@@ -8,14 +8,8 @@ Installs the release APK on the emulator and launches it.
 import os
 import sys
 
-from android_tester.common import (
-    APP_PACKAGE_NAME,
-    PROJECT_ROOT,
-    RELEASE_APK,
-    Device,
-    exec_cmd,
-    get_live_devices,
-)
+from android_tester.common import Device, exec_cmd, get_live_devices
+from android_tester.env import APP_PACKAGE_NAME, PROJECT_ROOT, RELEASE_APK
 
 os.chdir(PROJECT_ROOT)
 

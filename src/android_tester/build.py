@@ -1,6 +1,7 @@
 import os
 
-from android_tester.common import PROJECT_ROOT, exec_cmd
+from android_tester.common import exec_cmd
+from android_tester.env import PROJECT_ROOT
 
 
 def main():

@@ -4,14 +4,13 @@ Common functions shared between scripts. Linted.
 
 # flake8: noqa: E501
 
-import os
+
 import sys
 from dataclasses import dataclass
 from subprocess import call, check_output
 from typing import Optional
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(os.path.dirname(HERE))
+from android_tester.env import PROJECT_ROOT
 
 
 def uninstall_apk(
@@ -23,14 +22,6 @@ def uninstall_apk(
         ignore_errors=ignore_errors,
         timeout=60,
     )
-
-
-APK_PATH = "app/build/outputs/apk/release/app-release.apk"
-APP_PACKAGE_NAME = "org.internetwatchdogs.androidmonitor"
-APP_PACKAGE_TEST_NAME = "org.internetwatchdogs.androidmonitor.test"
-MAIN_ACTIVITY = "MainActivity"
-
-RELEASE_APK = os.path.join(PROJECT_ROOT, "app", "release", "app-release.apk")
 
 
 @dataclass

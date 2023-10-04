@@ -8,13 +8,8 @@ Uninstalls the APK on the emulator.
 import os
 import sys
 
-from android_tester.common import (
-    APP_PACKAGE_NAME,
-    PROJECT_ROOT,
-    Device,
-    get_live_devices,
-    uninstall_apk,
-)
+from android_tester.common import Device, get_live_devices, uninstall_apk
+from android_tester.env import APP_PACKAGE_NAME, PROJECT_ROOT
 
 os.chdir(PROJECT_ROOT)
 
