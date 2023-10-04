@@ -4,7 +4,7 @@ Unit test file.
 import os
 import unittest
 
-COMMAND = "android_tester"
+COMMAND = "android-tester --help"
 
 
 class MainTester(unittest.TestCase):
