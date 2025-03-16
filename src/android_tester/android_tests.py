@@ -39,7 +39,9 @@ r"""
 
   """
 
-
+# Untested new stuff
+# EMULATOR_TYPE = "system-images;android-33;google_apis;x86_64"  # "sdkmanager --list | grep system-images"
+#EMULATOR_TYPE = "system-images;android-31;google_apis;x86_64"  # "sdkmanager --list | grep system-images"
 EMULATOR_TYPE = "system-images;android-30;google_apis_playstore;x86_64"  # "sdkmanager --list | grep system-images"
 # LAUNCH_CMD = f"echo no | emulator -avd test -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -accel off"
 LAUNCH_CMD = "echo no | emulator -avd test -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim"
@@ -121,20 +123,16 @@ class RunningDevice:
     def serial(self) -> str:
         return self.device.serial
 
-
-def bringup_emulator(api: Optional[int] = None) -> RunningDevice:
-    """Install emulator"""
-    # exec_cmd('sudo chown $USER:$USER /usr/local/lib/android/sdk -R')
+def ensure_installed() -> None:
+    """Ensure the emulator is installed"""
     exec_cmd("yes | sdkmanager --licenses")
     exec_cmd('sdkmanager --install "build-tools;33.0.2" platform-tools')
     exec_cmd("sdkmanager --install emulator --channel=0")
     exec_cmd(f'sdkmanager --install "{EMULATOR_TYPE}" --channel=0')
 
-    # proc = subprocess.Popen(LAUNCH_CMD, shell=True, universal_newlines=True)
-    # atexit.register(lambda: proc.kill())
-
-    # exec_cmd('adb wait-for-device')
-
+def bringup_emulator(api: Optional[int] = None) -> RunningDevice:
+    """Install emulator"""
+    ensure_installed()
     def bringup(avd_name: str) -> Optional[Popen]:
         """Bring up an Android emulator"""
         try:
